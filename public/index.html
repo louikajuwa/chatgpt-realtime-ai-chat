@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#0b0f1a" />
+  <title>AI Chat</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%237c3aed'/%3E%3Cpath d='M8 10h16v9H15l-4 4v-4H8z' fill='white'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#messageInput">Skip to message box</a>
+
+  <header class="app-header">
+    <h1 class="app-title">AI Chat</h1>
+    <div class="header-status">
+      <span id="statusPill" class="pill pill-connecting" role="status">
+        <span class="pill-dot" aria-hidden="true"></span>
+        <span id="statusText">Connecting</span>
+      </span>
+      <button id="reconnectBtn" class="btn btn-secondary btn-sm" type="button" hidden>Reconnect</button>
+      <button id="newChatBtn" class="btn btn-secondary btn-sm" type="button">New chat</button>
+    </div>
+  </header>
+
+  <div id="banner" class="banner banner-error" role="alert" hidden></div>
+
+  <div id="busyBox" class="banner banner-warn" hidden>
+    <span id="busyText">The server is busy. Please try again shortly.</span>
+    <button id="retryBtn" class="btn btn-secondary btn-sm" type="button">Retry</button>
+  </div>
+
+  <section id="authPanel" class="card auth-card" aria-labelledby="authHeading" hidden>
+    <h2 id="authHeading" class="card-title">Access token required</h2>
+    <form id="authForm" class="auth-form" autocomplete="off">
+      <label class="field-label" for="tokenInput">Access token</label>
+      <input id="tokenInput" class="input" type="password" autocomplete="off" spellcheck="false" required />
+      <p id="authError" class="field-error" role="alert" hidden></p>
+      <button class="btn btn-primary" type="submit">Connect</button>
+    </form>
+  </section>
+
+  <div id="appMain" class="layout">
+    <aside class="sidebar" aria-label="Settings">
+      <section class="card" aria-labelledby="brainHeading">
+        <h2 id="brainHeading" class="card-title">Knowledge</h2>
+        <label class="field-label" for="brainInput">Facts and notes shared across all chats</label>
+        <textarea id="brainInput" class="input brain-input" placeholder="Enter or update your knowledge here..." spellcheck="true"></textarea>
+        <div class="meta-row">
+          <span id="brainCount" class="counter">0 / 0</span>
+          <span id="brainStatus" class="hint" role="status">Ctrl/Cmd+S to save</span>
+        </div>
+        <div class="btn-row">
+          <button id="saveBrain" class="btn btn-primary btn-sm" type="button" disabled>Save</button>
+          <button id="loadBrain" class="btn btn-secondary btn-sm" type="button" disabled>Load</button>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="instrHeading">
+        <h2 id="instrHeading" class="card-title">Chat instructions</h2>
+        <label class="field-label" for="instrInput">Instructions for the assistant</label>
+        <textarea id="instrInput" class="input instr-input" rows="3" placeholder="e.g. Reply in Spanish. Be brief."></textarea>
+        <div class="meta-row">
+          <span id="instrCount" class="counter">0 / 0</span>
+          <span class="hint">Applies to this chat only</span>
+        </div>
+      </section>
+    </aside>
+
+    <main class="chat-panel" aria-label="Conversation">
+      <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions text" tabindex="0" aria-label="Conversation messages">
+        <p id="emptyState" class="empty-state">Send a message to start chatting.</p>
+      </div>
+
+      <form id="composer" class="composer" autocomplete="off">
+        <label class="visually-hidden" for="messageInput">Message</label>
+        <textarea id="messageInput" class="input composer-input" rows="1" placeholder="Message AI…"></textarea>
+        <button id="sendBtn" class="btn btn-primary" type="submit" disabled>Send</button>
+        <button id="stopBtn" class="btn btn-danger" type="button" hidden>Stop</button>
+      </form>
+    </main>
+  </div>
+
+  <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

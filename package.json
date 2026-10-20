@@ -1,0 +1,26 @@
+{
+  "name": "ai-chat",
+  "version": "2.0.0",
+  "private": true,
+  "main": "server.js",
+  "description": "Text AI chat using the OpenAI Responses API",
+  "license": "ISC",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon --legacy-watch server.js",
+    "test": "node --test --test-reporter=spec \"test/*.test.js\"",
+    "mock:openai": "node scripts/mock-openai.js"
+  },
+  "dependencies": {
+    "express": "^4.22.3",
+    "ioredis": "^5.3.2",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "socket.io-client": "^4.8.1"
+  }
+}
