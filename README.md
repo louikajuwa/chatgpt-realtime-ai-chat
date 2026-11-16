@@ -138,3 +138,7 @@ To restore a snapshot: stop Redis, copy `dump.rdb` into the `ai_chat_redis` volu
 - "NO_API_KEY" error: `OPENAI_API_KEY` is missing in `.env`; recreate with `docker compose up -d`.
 - `UPSTREAM_ERROR` with a status: check the key, model name (`OPENAI_MODEL`) and base URL; the server log has the upstream response body.
 - Module not found / stale dependencies: `docker compose up -d --build -V`.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
